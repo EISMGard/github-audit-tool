@@ -1,4 +1,4 @@
-#Written by Ben Francom (benfran.com) for EISMGard LLC (eismgard.com) in the two-thousand and twenty-second year of our Lord.
+#Written by Ben Francom (benfran.com) for EISMGard LLC (eismgard.com) under the MIT License
 import os
 from unicodedata import name
 from github import Github
