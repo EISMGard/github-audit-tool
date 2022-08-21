@@ -1,5 +1,6 @@
 #Written by Ben Francom (benfran.com) for EISMGard LLC (eismgard.com) in the two-thousand and twenty-second year of our Lord.
 import os
+from unicodedata import name
 from github import Github
 
 # using an access token
@@ -11,7 +12,7 @@ if os.environ.get('GITHUB_TOKEN') is not None:
 
 
 #Get list of repos
-print("Repo List:")
+    print("Repo List:")
 repos = org.get_repos()
 for r in repos:
     print("  ",r.git_url)
@@ -20,7 +21,7 @@ for r in repos:
 print("\nTeam List:")
 teams = org.get_teams()
 for t in teams:
-    print("   Name: ",t.name,", e-mail: ",t._identity)
+    print("   ",t.name)
 
 
 #Get list of teams
@@ -29,4 +30,4 @@ teams = org.get_teams()
 for t in teams:
     print("  ",t.name," Team Members:")
     for m in t.get_members():
-        print("      ",m.name)
+        print("      Name: ",m.name,", Email: ",m.email,", ID: ",m.id,", Login: ",m.login)
