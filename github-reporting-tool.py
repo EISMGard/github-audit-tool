@@ -24,7 +24,7 @@ for t in teams:
     print("   ",t.name)
 
 
-#Get list of teams
+#Get list of team members
 print("\nTeam Membership List:")
 teams = org.get_teams()
 for t in teams:
