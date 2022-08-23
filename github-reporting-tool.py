@@ -7,12 +7,15 @@ from github import Github
 g = Github(os.environ['GITHUB_TOKEN'])
 org = g.get_organization(os.environ['GITHUB_ORG_NAME'])
 
-#env cheeck
-if os.environ.get('GITHUB_TOKEN') is not None:
+#env chiggity check
+if os.environ.get('GITHUB_TOKEN') is None:
+    print('!!! missing GITHUB_TOKEN environment variable !!!')
+if os.environ.get('GITHUB_ORG_NAME') is None:
+    print('!!! missing GITHUB_ORG_NAME environment variable !!!')
 
 
 #Get list of repos
-    print("Repo List:")
+print("Repo List:")
 repos = org.get_repos()
 for r in repos:
     print("  ",r.git_url)
