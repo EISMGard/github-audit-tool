@@ -25,7 +25,9 @@ print("\nTeam List:")
 teams = org.get_teams()
 for t in teams:
     print("   ",t.name)
-
+    team_repos = t.get_repos()
+    for repos in team_repos:
+        print("     ",repos.git_url)
 
 #Get list of team members
 print("\nTeam Membership List:")
