@@ -27,56 +27,16 @@ $ python github-reporting-tool.py
 ## Example Output
 ```
 Repo List:
-git://github.com/EISMGard/UnstoppableDevOps.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/onetwotest.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/laughing-pancake.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/potential-octo-computing-machine.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/literate-octo-system.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/github-audit-tool.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/test.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/foo.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/bar.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
-git://github.com/EISMGard/baz.git 
-    Direct Attached User Rights:
-       bfrancom
-       jesse-eismgard
-       jane-at-eismgard
+   git://github.com/EISMGard/UnstoppableDevOps.git
+   git://github.com/EISMGard/onetwotest.git
+   git://github.com/EISMGard/laughing-pancake.git
+   git://github.com/EISMGard/potential-octo-computing-machine.git
+   git://github.com/EISMGard/literate-octo-system.git
+   git://github.com/EISMGard/github-audit-tool.git
+   git://github.com/EISMGard/test.git
+   git://github.com/EISMGard/foo.git
+   git://github.com/EISMGard/bar.git
+   git://github.com/EISMGard/baz.git
 
 Team List:
     a-team
@@ -107,9 +67,46 @@ Team Membership List:
    gorakTeam  Team Members:
        bfrancom
        jane-at-eismgard
-
-Users and direct access:
+       
+Direct Repo Rights:
+   git://github.com/EISMGard/UnstoppableDevOps.git
        bfrancom
-       jane-at-eismgard
        jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/onetwotest.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/laughing-pancake.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/potential-octo-computing-machine.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/literate-octo-system.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/github-audit-tool.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/test.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/foo.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/bar.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+   git://github.com/EISMGard/baz.git
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
 ```

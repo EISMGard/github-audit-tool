@@ -40,7 +40,7 @@ for t in teams:
         print("      ",m.login)
 
 #Get list of repos
-print("Direct Repo Rights:")
+print("\nDirect Repo Rights:")
 repos = org.get_repos()
 for r in repos:
     print("  ",r.git_url)
