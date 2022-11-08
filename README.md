@@ -1,10 +1,12 @@
 # GitHub Audit Tool
-This is a tool for auditing github repos, users, and teams. Good for compliance, security and audits.
+This is a tool for auditing github repos, users, and teams. It is useful for compliance, security and auditing of GitHub.
 
 ## Capabilities
 * Repo list
 * Team list
-* Team repo access list
+* Team repo rights list
+* User list
+* User repo rights list
 
 [LICENSE](./LICENSE)
 
