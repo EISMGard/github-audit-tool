@@ -18,11 +18,8 @@ if os.environ.get('GITHUB_ORG_NAME') is None:
 print("Repo List:")
 repos = org.get_repos()
 for r in repos:
-    print(r.git_url,"\n    Direct Attached User Rights:")
-    collaborators = r.get_collaborators()
-    for c in collaborators:
-        #print("      Name: ",c.name,", Email: ",c.email,", ID: ",c.id,", Login: ",c.login)
-        print("      ",c.login)
+    print("  ",r.git_url)
+    
 
 #Get list of teams
 print("\nTeam List:")
@@ -41,3 +38,13 @@ for t in teams:
     for m in t.get_members():
         #print("      Name: ",m.name,", Email: ",m.email,", ID: ",m.id,", Login: ",m.login)
         print("      ",m.login)
+
+#Get list of repos
+print("Direct Repo Rights:")
+repos = org.get_repos()
+for r in repos:
+    print("  ",r.git_url)
+    collaborators = r.get_collaborators()
+    for c in collaborators:
+        #print("      Name: ",c.name,", Email: ",c.email,", ID: ",c.id,", Login: ",c.login)
+        print("      ",c.login)
