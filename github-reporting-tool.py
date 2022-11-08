@@ -41,10 +41,3 @@ for t in teams:
     for m in t.get_members():
         #print("      Name: ",m.name,", Email: ",m.email,", ID: ",m.id,", Login: ",m.login)
         print("      ",m.login)
-
-#Get named users
-print("\nUsers and direct access:")
-users = org.get_members()
-for u in users:
-     #print("      Name: ",u.name,", Email: ",u.email,", ID: ",u.id,", Login: ",u.login)
-     print("      ",u.login)
