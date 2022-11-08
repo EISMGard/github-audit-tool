@@ -27,13 +27,56 @@ $ python github-reporting-tool.py
 ## Example Output
 ```
 Repo List:
-   git://github.com/EISMGard/UnstoppableDevOps.git
-   git://github.com/EISMGard/onetwotest.git
-   git://github.com/EISMGard/laughing-pancake.git
-   git://github.com/EISMGard/potential-octo-computing-machine.git
-   git://github.com/EISMGard/literate-octo-system.git
-   git://github.com/EISMGard/github-audit-tool.git
-   git://github.com/EISMGard/test.git
+git://github.com/EISMGard/UnstoppableDevOps.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/onetwotest.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/laughing-pancake.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/potential-octo-computing-machine.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/literate-octo-system.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/github-audit-tool.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/test.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/foo.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/bar.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
+git://github.com/EISMGard/baz.git 
+    Direct Attached User Rights:
+       bfrancom
+       jesse-eismgard
+       jane-at-eismgard
 
 Team List:
     a-team
@@ -50,18 +93,23 @@ Team List:
 
 Team Membership List:
    a-team  Team Members:
-      Name:  Ben Francom , Email:  None , ID:  5726729 , Login:  bfrancom
-      Name:  None , Email:  None , ID:  111655783 , Login:  jesse-eismgard
+       bfrancom
+       jesse-eismgard
    b-team  Team Members:
-      Name:  Ben Francom , Email:  None , ID:  5726729 , Login:  bfrancom
-      Name:  None , Email:  None , ID:  111655783 , Login:  jesse-eismgard
+       bfrancom
+       jesse-eismgard
    bar team  Team Members:
-      Name:  Ben Francom , Email:  None , ID:  5726729 , Login:  bfrancom
-      Name:  None , Email:  None , ID:  111655783 , Login:  jesse-eismgard
+       bfrancom
+       jesse-eismgard
    foo team  Team Members:
-      Name:  Ben Francom , Email:  None , ID:  5726729 , Login:  bfrancom
-      Name:  None , Email:  None , ID:  111656116 , Login:  jane-at-eismgard
+       bfrancom
+       jane-at-eismgard
    gorakTeam  Team Members:
-      Name:  Ben Francom , Email:  None , ID:  5726729 , Login:  bfrancom
-      Name:  None , Email:  None , ID:  111656116 , Login:  jane-at-eismgard
+       bfrancom
+       jane-at-eismgard
+
+Users and direct access:
+       bfrancom
+       jane-at-eismgard
+       jesse-eismgard
 ```
