@@ -1,5 +1,5 @@
-# GitHub Audit Tool
-This is a tool for auditing github repos, users, and teams. It is useful for compliance, security and auditing of GitHub.
+# GitHub Org Audit Tool
+This is a tool for auditing github organizations including their repos, users, and teams. It is useful for compliance, security and auditing.
 
 ## Capabilities
 * Repo list
