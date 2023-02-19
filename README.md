@@ -13,6 +13,22 @@ This is a tool for auditing github organizations including their repos, users, a
 ## Installation
 Please note that you'll need your github org name and to create a github token with access to all repo, team, and user info.
 
+### Docker Installation
+On your host, you'll need to set your environment variables mentioned above.
+
+```sh
+export GITHUB_ORG_NAME=<your github org name>
+export  GITHUB_TOKEN=<your github token>
+
+#Build Docker Image
+docker build --tag github-audit-tool .
+
+#Run Image
+docker run --rm -it -e GITHUB_ORG_NAME -e GITHUB_TOKEN github-audit-tool
+```
+
+### Local Installation
+
 ```sh
 $ git clone https://github.com/EISMGard/github-audit-tool
 $ cd github-audit-tool
