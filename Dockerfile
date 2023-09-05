@@ -10,5 +10,5 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 ENV PATH=/home/python/.local/bin:$PATH
 RUN pip3 install -r requirements.txt
-COPY github-reporting-tool.py github-reporting-tool.py
-CMD [ "python3","github-reporting-tool.py" ]
+COPY github_reporting_tool.py github_reporting_tool.py
+CMD [ "python3","github_reporting_tool.py" ]

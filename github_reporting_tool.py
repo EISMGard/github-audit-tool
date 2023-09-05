@@ -1,6 +1,7 @@
-#Written by Ben Francom (benfran.com) for EISMGard LLC (eismgard.com) under the MIT License
+#Written by Ben Francom (benfran.com)
+#for EISMGard LLC (eismgard.com) under the MIT License
 import os
-from unicodedata import name
+#from unicodedata import name
 from github import Github
 
 # using an access token
@@ -36,7 +37,8 @@ teams = org.get_teams()
 for t in teams:
     print("  ",t.name," Team Members:")
     for m in t.get_members():
-        #print("      Name: ",m.name,", Email: ",m.email,", ID: ",m.id,", Login: ",m.login)
+        #print("      Name: ",m.name,", Email: ",m.email,", ID: ",m.id,", \
+        # Login: ",m.login)
         print("      ",m.login)
 
 #Get list of repos
@@ -46,5 +48,6 @@ for r in repos:
     print("  ",r.git_url)
     collaborators = r.get_collaborators()
     for c in collaborators:
-        #print("      Name: ",c.name,", Email: ",c.email,", ID: ",c.id,", Login: ",c.login)
+        #print("      Name: ",c.name,", Email: ",c.email,", ID: ",c.id,", Login: ", \
+        # c.login)
         print("      ",c.login)
