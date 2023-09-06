@@ -11,24 +11,17 @@ env:
 jobs:
     unittest:
         runs-on: ubuntu-latest
+        strategy:
+            matrix:
+              python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
         steps:
-          - name: Checkout code
-            uses: actions/checkout@v3    
-          - uses: docker/setup-buildx-action@v2
-          - uses: docker/build-push-action@v4
+          - uses: actions/checkout@v3
+          - name: Set up Python ${{ matrix.python-version }}
+            uses: actions/setup-python@v4
             with:
-              context: .
-              file: "Dockerfile"
-              tags: github-audit-tool:latest
-              load: true
-              cache-from: type=gha
-              cache-to: type=gha,mode=max
-              push: false
-          - name: Run test
-            uses: addnab/docker-run-action@v3
-            with:
-              image: github-audit-tool:latest
-              run: |
-                python -m pip install --upgrade pip
-                if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                python github-reporting-tool.py
+              python-version: ${{ matrix.python-version }}
+          - name: Install dependencies & run app
+            run: |
+              python -m pip install --upgrade pip
+              if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+              python github-reporting-tool.py
