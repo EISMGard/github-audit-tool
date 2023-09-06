@@ -28,4 +28,7 @@ jobs:
             uses: addnab/docker-run-action@v3
             with:
               image: github-audit-tool:latest
-              run: python github-reporting-tool.py
+              run: |
+                python -m pip install --upgrade pip
+                if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                python github-reporting-tool.py
