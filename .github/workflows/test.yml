@@ -5,7 +5,7 @@ on:
       types: [opened, reopened]
 
 env:
-    GITHUB_ORG_NAME: ${{ env.GH_ORG_NAME }}
+    GITHUB_ORG_NAME: ${{ vars.GH_ORG_NAME }}
     GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
 
 jobs:
