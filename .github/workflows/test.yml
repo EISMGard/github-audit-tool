@@ -1,0 +1,31 @@
+name: Docker Image CI
+
+on:
+    pull_request:
+      types: [opened, reopened]
+
+env:
+    GITHUB_ORG_NAME: ${{ vars.GH_ORG_NAME }}
+    GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+
+jobs:
+    unittest:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3    
+          - uses: docker/setup-buildx-action@v2
+          - uses: docker/build-push-action@v4
+            with:
+              context: .
+              file: "Dockerfile"
+              tags: github-audit-tool:latest
+              load: true
+              cache-from: type=gha
+              cache-to: type=gha,mode=max
+              push: false
+          - name: Run test
+            uses: addnab/docker-run-action@v3
+            with:
+              image: github-audit-tool:latest
+              run: python github-reporting-tool.py
