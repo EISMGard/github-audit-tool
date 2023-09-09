@@ -11,7 +11,10 @@ This is a tool for auditing github organizations including their repos, users, a
 [LICENSE](./LICENSE)
 
 ## Installation
-Please note that you'll need your github org name and to create a github token with access to all repo, team, and user info.
+### Permissions
+Please note that you'll need your github org name and to create a github token with access to all repo, team, and user info. Here is an example of a fine-grained access token:
+![org permissions](./images/org-permissions.png)
+![other permissions](./images/other-permissions.png)
 
 ### Docker Installation
 On your host, you'll need to set your environment variables mentioned above.
