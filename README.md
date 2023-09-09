@@ -37,7 +37,7 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 $ export GITHUB_ORG_NAME=<your github org name>
 $ export  GITHUB_TOKEN=<your github token>
-$ python github-reporting-tool.py
+$ python github_reporting_tool.py
 ```
 
 ## Example Output
