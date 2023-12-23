@@ -23,7 +23,7 @@ repos = org.get_repos()
 for r in repos:
     print("  ", r.git_url)
 
-# Get list of teams
+# Get list of teams and their respective repos
 print("\nTeam List:")
 teams = org.get_teams()
 for t in teams:
@@ -32,7 +32,7 @@ for t in teams:
     for repos in team_repos:
         print("     ", repos.git_url)
 
-# Get list of team members
+# List team members
 print("\nTeam Membership List:")
 teams = org.get_teams()
 for t in teams:
@@ -42,7 +42,7 @@ for t in teams:
         # Login: ",m.login)
         print("      ", m.login)
 
-# Get list of repos
+# Get list of repos, and who has direct grants
 print("\nDirect Repo Rights:")
 repos = org.get_repos()
 for r in repos:
