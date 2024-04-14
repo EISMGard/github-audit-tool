@@ -2,7 +2,7 @@ certifi==2023.7.22
 cffi==1.15.1
 charset-normalizer==2.1.0
 Deprecated==1.2.13
-idna==3.3
+idna==3.7
 pycparser==2.21
 PyGithub==1.55
 PyJWT==2.4.0
