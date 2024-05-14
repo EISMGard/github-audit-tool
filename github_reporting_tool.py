@@ -7,8 +7,8 @@ import os
 from github import Github
 
 # using an access token
-g = Github(os.environ["GITHUB_TOKEN"])
-org = g.get_organization(os.environ["GITHUB_ORG_NAME"])
+G = Github(os.environ["GITHUB_TOKEN"])
+ORG = G.get_organization(os.environ["GITHUB_ORG_NAME"])
 
 # env chiggity check
 if os.environ.get("GITHUB_TOKEN") is None:
@@ -19,13 +19,13 @@ if os.environ.get("GITHUB_ORG_NAME") is None:
 
 # Get list of repos
 print("Repo List:")
-repos = org.get_repos()
+repos = ORG.get_repos()
 for r in repos:
     print("  ", r.git_url)
 
 # Get list of teams and their respective repos
 print("\nTeam List:")
-teams = org.get_teams()
+teams = ORG.get_teams()
 for t in teams:
     print("   ", t.name)
     team_repos = t.get_repos()
@@ -34,7 +34,7 @@ for t in teams:
 
 # List team members
 print("\nTeam Membership List:")
-teams = org.get_teams()
+teams = ORG.get_teams()
 for t in teams:
     print("  ", t.name, " Team Members:")
     for m in t.get_members():
@@ -44,7 +44,7 @@ for t in teams:
 
 # Get list of repos, and who has direct grants
 print("\nDirect Repo Rights:")
-repos = org.get_repos()
+repos = ORG.get_repos()
 for r in repos:
     print("  ", r.git_url)
     collaborators = r.get_collaborators()
