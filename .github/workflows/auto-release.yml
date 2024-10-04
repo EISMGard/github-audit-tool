@@ -16,7 +16,9 @@ jobs:
 
       - name: Get latest tag
         id: get_latest_tag
-        run: echo "latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo v0.0.0)" >> $GITHUB_OUTPUT
+        run: |
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
 
       - name: Increment version
         id: increment_version
@@ -34,7 +36,11 @@ jobs:
         id: generate_release_notes
         run: |
           latest_tag=${{ steps.get_latest_tag.outputs.latest_tag }}
-          release_notes=$(git log ${latest_tag}..HEAD --pretty=format:"- %s%n%b")
+          if [ "$latest_tag" = "v0.0.0" ]; then
+            release_notes=$(git log --pretty=format:"- %s%n%b")
+          else
+            release_notes=$(git log ${latest_tag}..HEAD --pretty=format:"- %s%n%b")
+          fi
           echo "release_notes<<EOF" >> $GITHUB_OUTPUT
           echo "$release_notes" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
