@@ -1,0 +1,13 @@
+certifi
+cffi
+charset-normalizer
+Deprecated
+idna
+pycparser
+PyGithub
+PyJWT
+PyNaCl
+requests
+urllib3
+wrapt
+
