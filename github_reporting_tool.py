@@ -136,46 +136,41 @@ def print_output(title, data):
 
 def to_snake_case(string):
     """Convert a string to snake_case"""
-    string = re.sub(r'[^\w\s]', '', string)
-    string = string.replace(' ', '_')
-    return string.lower()
+    return re.sub(r'[^\w]', '_', string).lower()
+
+
+def format_value(value):
+    """Format a value for CSV output"""
+    if isinstance(value, datetime):
+        return value.isoformat()
+    return str(value)
+
+
+def generate_rows(data):
+    """Generate rows from the data"""
+    if isinstance(data, list):
+        return [[item] for item in sorted(data, key=str.lower)]
+
+    rows = []
+    for key, values in data.items():
+        if isinstance(values, list):
+            for value in values:
+                if isinstance(value, dict):
+                    rows.append([key] + [format_value(value.get(k, '')) for k in value.keys()])
+                else:
+                    rows.append([key, value])
+        else:
+            rows.append([key, values])
+
+    return sorted(rows, key=lambda x: tuple(str(i).lower() for i in x))
 
 
 def export_to_csv(data, filename, headers):
-    """Export data to CSV file with meaningful headers in snake_case and sort by repo and username"""
+    """Export data to CSV file with meaningful headers in snake_case"""
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        snake_case_headers = [to_snake_case(header) for header in headers]
-        writer.writerow(snake_case_headers)
-
-        if isinstance(data, list):
-            sorted_data = sorted(data, key=lambda x: x.lower())
-            writer.writerows([[item] for item in sorted_data])
-        elif isinstance(data, dict):
-            sorted_data = []
-            for key, values in data.items():
-                if isinstance(values, list):
-                    for value in values:
-                        if isinstance(value, dict):
-                            row = [key]
-                            for header in headers[1:]:  # Skip the first header (key)
-                                header_key = to_snake_case(header)
-                                if header_key == 'created_at':
-                                    date_value = value.get(header_key, '')
-                                    if isinstance(date_value, datetime):
-                                        row.append(date_value.isoformat())
-                                    else:
-                                        row.append(date_value)
-                                else:
-                                    row.append(value.get(header_key, ''))
-                            sorted_data.append(row)
-                        else:
-                            sorted_data.append([key, value])
-                else:
-                    sorted_data.append([key, values])
-
-            sorted_data.sort(key=lambda x: (x[0].lower(), x[1].lower() if len(x) > 1 else ''))
-            writer.writerows(sorted_data)
+        writer.writerow([to_snake_case(header) for header in headers])
+        writer.writerows(generate_rows(data))
 
 
 def main():
