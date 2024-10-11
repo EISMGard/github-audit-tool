@@ -1,54 +1,94 @@
+#!/usr/bin/env python
+
 # Written by Ben Francom (benfran.com)
 # for EISMGard LLC (eismgard.com) under the MIT License
-"""Module providingFunction os environment access"""
-import os
 
-# from unicodedata import name
+from decouple import config
 from github import Github
 
-# using an access token
-G = Github(os.environ["GITHUB_TOKEN"])
-ORG = G.get_organization(os.environ["GITHUB_ORG_NAME"])
 
-# env chiggity check
-if os.environ.get("GITHUB_TOKEN") is None:
-    print("!!! missing GITHUB_TOKEN environment variable !!!")
-if os.environ.get("GITHUB_ORG_NAME") is None:
-    print("!!! missing GITHUB_ORG_NAME environment variable !!!")
+def check_environment_variables():
+    """Check if required environment variables are set"""
+    github_token = config('GITHUB_TOKEN', default=None)
+    github_org_name = config('GITHUB_ORG_NAME', default=None)
+
+    match (github_token, github_org_name):
+        case (None, None):
+            print("!!! missing both GITHUB_TOKEN and GITHUB_ORG_NAME environment variables !!!")
+        case (None, _):
+            print("!!! missing GITHUB_TOKEN environment variable !!!")
+        case (_, None):
+            print("!!! missing GITHUB_ORG_NAME environment variable !!!")
+        case _:
+            return  # Both variables are set, so we can return without an error
+
+    exit(1)
 
 
-# Get list of repos
-print("Repo List:")
-repos = ORG.get_repos()
-for r in repos:
-    print("  ", r.git_url)
+def get_github_client():
+    """Get GitHub client using access token"""
+    return Github(config('GITHUB_TOKEN'))
 
-# Get list of teams and their respective repos
-print("\nTeam List:")
-teams = ORG.get_teams()
-for t in teams:
-    print("   ", t.name)
-    team_repos = t.get_repos()
-    for repos in team_repos:
-        print("     ", repos.git_url)
 
-# List team members
-print("\nTeam Membership List:")
-teams = ORG.get_teams()
-for t in teams:
-    print("  ", t.name, " Team Members:")
-    for m in t.get_members():
-        # print("      Name: ",m.name,", Email: ",m.email,", ID: ",m.id,", \
-        # Login: ",m.login)
-        print("      ", m.login)
+def get_organization(github_client):
+    """Get GitHub organization"""
+    return github_client.get_organization(config('GITHUB_ORG_NAME'))
 
-# Get list of repos, and who has direct grants
-print("\nDirect Repo Rights:")
-repos = ORG.get_repos()
-for r in repos:
-    print("  ", r.git_url)
-    collaborators = r.get_collaborators()
-    for c in collaborators:
-        # print("      Name: ",c.name,", Email: ",c.email,", ID: ",c.id,", Login: ", \
-        # c.login)
-        print("      ", c.login)
+
+def print_repo_list(org):
+    """Print list of repositories"""
+    print("Repo List:")
+    repos = org.get_repos()
+    for r in repos:
+        print(f"  {r.git_url}")
+
+
+def print_team_list(org):
+    """Print list of teams and their repositories"""
+    print("\nTeam List:")
+    teams = org.get_teams()
+    for t in teams:
+        print(f"   {t.name}")
+        team_repos = t.get_repos()
+        for repo in team_repos:
+            print(f"     {repo.git_url}")
+
+
+def print_team_membership(org):
+    """Print list of teams and their members"""
+    print("\nTeam Membership List:")
+    teams = org.get_teams()
+    for t in teams:
+        print(f"  {t.name} Team Members:")
+        for m in t.get_members():
+            print(f"      {m.login}")
+
+
+def print_repo_rights(org):
+    """Print list of repositories and their direct collaborators"""
+    print("\nDirect Repo Rights:")
+    repos = org.get_repos()
+    for r in repos:
+        print(f"  {r.git_url}")
+        collaborators = r.get_collaborators()
+        for c in collaborators:
+            print(f"      {c.login}")
+
+
+def main():
+    check_environment_variables()
+    github_client = get_github_client()
+    org = get_organization(github_client)
+
+    print_repo_list(org)
+    print_team_list(org)
+    print_team_membership(org)
+    print_repo_rights(org)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nExiting...")
+        exit(0)

@@ -1,0 +1,46 @@
+# Version control
+.git
+.gitignore
+
+# Environment files
+.env
+.env.example
+
+# Editor configurations
+.editorconfig
+.vscode
+
+# CI/CD configurations
+.github
+.dive-ci
+.hadolint.yaml
+
+# Python cache and virtual environments
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv
+.venv
+
+# Python tools cache
+.ruff_cache
+
+# Tool version management
+.tool-versions
+
+# Project documentation
+*.md
+LICENSE
+
+# Dependencies
+poetry.lock
+
+# Images (if not needed in the Docker image)
+images
+
+# Other files not needed in the Docker image
+.dockerignore
+pyproject.toml
+requirements.in
