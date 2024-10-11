@@ -16,6 +16,7 @@ from pathlib import Path
 # environment variables
 CSV_PATH = config('CSV_PATH', default='csv')
 TTL = config('TTL', default=3600, cast=int)
+OUTPUT_MODE = config('OUTPUT_MODE', default='stdout')
 
 # create csv directory if it doesn't exist
 Path(CSV_PATH).mkdir(parents=True, exist_ok=True)
@@ -44,7 +45,7 @@ def check_github_environment_variables():
 
 def check_output_mode():
     """Check and return the output mode"""
-    output_mode = config('OUTPUT_MODE', default='stdout')
+    output_mode = OUTPUT_MODE
 
     if output_mode not in ['stdout', 'csv', 'both']:
         print("!!! invalid OUTPUT_MODE. Must be 'stdout', 'csv', or 'both' !!!")
