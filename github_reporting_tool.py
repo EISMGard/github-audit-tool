@@ -149,8 +149,7 @@ def export_to_csv(data, filename, headers):
                 if isinstance(values, list):
                     for value in values:
                         if isinstance(value, dict):
-                            for k, v in value.items():
-                                sorted_data.append([key, k, v])
+                            sorted_data.append([key, value.get('title', ''), value.get('key', '')])
                         else:
                             sorted_data.append([key, value])
                 else:
