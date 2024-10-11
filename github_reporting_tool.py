@@ -7,6 +7,7 @@ import csv
 import json
 import re
 import requests_cache
+from datetime import datetime
 from decouple import config
 from github import Github
 from pathlib import Path
@@ -96,13 +97,20 @@ def repo_rights(org):
 
 
 def get_deploy_keys(org):
-    """Get list of repositories and their deploy keys"""
+    """
+    Get list of repositories and their deploy keys
+    with creation dates
+    """
     print("Getting repo deploy keys...")
     repo_deploy_keys = {}
     for repo in org.get_repos():
         keys = repo.get_keys()
         if keys.totalCount > 0:
-            repo_deploy_keys[repo.git_url] = [{"title": key.title, "key": key.key} for key in keys]
+            repo_deploy_keys[repo.git_url] = [
+                {"key_title": key.title,
+                 "key": key.key,
+                 "created_at": key.created_at} for key in keys
+            ]
     return repo_deploy_keys
 
 
@@ -149,13 +157,24 @@ def export_to_csv(data, filename, headers):
                 if isinstance(values, list):
                     for value in values:
                         if isinstance(value, dict):
-                            sorted_data.append([key, value.get('title', ''), value.get('key', '')])
+                            row = [key]
+                            for header in headers[1:]:  # Skip the first header (key)
+                                header_key = to_snake_case(header)
+                                if header_key == 'created_at':
+                                    date_value = value.get(header_key, '')
+                                    if isinstance(date_value, datetime):
+                                        row.append(date_value.isoformat())
+                                    else:
+                                        row.append(date_value)
+                                else:
+                                    row.append(value.get(header_key, ''))
+                            sorted_data.append(row)
                         else:
                             sorted_data.append([key, value])
                 else:
                     sorted_data.append([key, values])
 
-            sorted_data.sort(key=lambda x: (x[0].lower(), x[1].lower()))
+            sorted_data.sort(key=lambda x: (x[0].lower(), x[1].lower() if len(x) > 1 else ''))
             writer.writerows(sorted_data)
 
 
@@ -171,7 +190,7 @@ def main():
         "Team List": (team_list(org), ["Team Name", "Repository URL"]),
         "Team Membership List": (team_membership(org), ["Team Name", "Member Username"]),
         "Direct Repo Rights": (repo_rights(org), ["Repository URL", "Collaborator Username"]),
-        "Repo Deploy Keys": (get_deploy_keys(org), ["Repository URL", "Key Title", "Key"]),
+        "Repo Deploy Keys": (get_deploy_keys(org), ["Repository URL", "Key Title", "Key", "Created At"]),
     }
 
     if output_mode in ['stdout', 'both']:
