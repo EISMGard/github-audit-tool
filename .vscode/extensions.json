@@ -1,0 +1,25 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "charliermarsh.ruff",
+    "codezombiech.gitignore",
+    "eamodio.gitlens",
+    "EditorConfig.EditorConfig",
+    "foxundermoon.shell-format",
+    "GitHub.copilot-chat",
+    "GitHub.copilot",
+    "jetpack-io.devbox",
+    "mads-hartmann.bash-ide-vscode",
+    "mechatroner.rainbow-csv",
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-python.python",
+    "ms-vscode.atom-keybindings",
+    "ms-vsliveshare.vsliveshare",
+    "redhat.ansible",
+    "redhat.vscode-yaml",
+    "ryu1kn.partial-diff",
+    "timonwong.shellcheck",
+    "yzhang.markdown-all-in-one"
+  ]
+}

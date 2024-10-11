@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7.0
 
-FROM python:3.13.0-slim
+FROM python:3.11.10-slim
 
 WORKDIR /app
 

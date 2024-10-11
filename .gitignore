@@ -1,4 +1,7 @@
 # ETC
+*.csv
+*.sqlite
+csv/*
 
 # General
 .DS_Store
