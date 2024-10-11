@@ -14,7 +14,7 @@ from pathlib import Path
 
 # environment variables
 CSV_PATH = config('CSV_PATH', default='csv')
-TTL = config('TTL', default=3600)
+TTL = config('TTL', default=3600, cast=int)
 
 # create csv directory if it doesn't exist
 Path(CSV_PATH).mkdir(parents=True, exist_ok=True)
@@ -95,6 +95,17 @@ def repo_rights(org):
     return repo_collaborators
 
 
+def get_deploy_keys(org):
+    """Get list of repositories and their deploy keys"""
+    print("Getting repo deploy keys...")
+    repo_deploy_keys = {}
+    for repo in org.get_repos():
+        keys = repo.get_keys()
+        if keys.totalCount > 0:
+            repo_deploy_keys[repo.git_url] = [{"title": key.title, "key": key.key} for key in keys]
+    return repo_deploy_keys
+
+
 def print_output(title, data):
     """Print output to stdout"""
     print(f"\n{title}:")
@@ -104,16 +115,21 @@ def print_output(title, data):
     elif isinstance(data, dict):
         for key, value in data.items():
             print(f"  {key}")
-            for item in value:
-                print(f"    {item}")
+            if isinstance(value, list):
+                for item in value:
+                    if isinstance(item, dict):
+                        for k, v in item.items():
+                            print(f"    {k}: {v}")
+                    else:
+                        print(f"    {item}")
+            else:
+                print(f"    {value}")
 
 
 def to_snake_case(string):
     """Convert a string to snake_case"""
-    # Remove special characters and replace spaces with underscores
     string = re.sub(r'[^\w\s]', '', string)
     string = string.replace(' ', '_')
-    # Convert to lowercase and return
     return string.lower()
 
 
@@ -130,10 +146,16 @@ def export_to_csv(data, filename, headers):
         elif isinstance(data, dict):
             sorted_data = []
             for key, values in data.items():
-                for value in values:
-                    sorted_data.append([key, value])
+                if isinstance(values, list):
+                    for value in values:
+                        if isinstance(value, dict):
+                            for k, v in value.items():
+                                sorted_data.append([key, k, v])
+                        else:
+                            sorted_data.append([key, value])
+                else:
+                    sorted_data.append([key, values])
 
-            # Sort by repository URL (column 0) and then by username (column 1), case-insensitive
             sorted_data.sort(key=lambda x: (x[0].lower(), x[1].lower()))
             writer.writerows(sorted_data)
 
@@ -150,6 +172,7 @@ def main():
         "Team List": (team_list(org), ["Team Name", "Repository URL"]),
         "Team Membership List": (team_membership(org), ["Team Name", "Member Username"]),
         "Direct Repo Rights": (repo_rights(org), ["Repository URL", "Collaborator Username"]),
+        "Repo Deploy Keys": (get_deploy_keys(org), ["Repository URL", "Key Title", "Key"]),
     }
 
     if output_mode in ['stdout', 'both']:
