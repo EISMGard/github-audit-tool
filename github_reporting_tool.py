@@ -1,22 +1,26 @@
 #!/usr/bin/env python
+"""shebang line to run the script with python3"""
 
 # Written by Ben Francom (benfran.com)
 # for EISMGard LLC (eismgard.com) under the MIT License
 
 import csv
-import json
+import sys
+from datetime import datetime
+from pathlib import Path
 import re
 import requests_cache
-from datetime import datetime
 from decouple import config
 from github import Github
-from pathlib import Path
 
 
 # environment variables
 CSV_PATH = config('CSV_PATH', default='csv')
 TTL = config('TTL', default=3600, cast=int)
 OUTPUT_MODE = config('OUTPUT_MODE', default='stdout')
+
+# constants
+REPO_URL = "Repository URL"
 
 # create csv directory if it doesn't exist
 Path(CSV_PATH).mkdir(parents=True, exist_ok=True)
@@ -119,20 +123,28 @@ def print_output(title, data):
     """Print output to stdout"""
     print(f"\n{title}:")
     if isinstance(data, list):
-        for item in data:
-            print(f"  {item}")
+        print_list(data, indent=2)
     elif isinstance(data, dict):
-        for key, value in data.items():
-            print(f"  {key}")
-            if isinstance(value, list):
-                for item in value:
-                    if isinstance(item, dict):
-                        for k, v in item.items():
-                            print(f"    {k}: {v}")
-                    else:
-                        print(f"    {item}")
-            else:
-                print(f"    {value}")
+        print_dict(data, indent=2)
+
+
+def print_list(data, indent=0):
+    """Print list items with indentation"""
+    for item in data:
+        if isinstance(item, dict):
+            print_dict(item, indent + 2)
+        else:
+            print(f"{' ' * indent}{item}")
+
+
+def print_dict(data, indent=0):
+    """Print dictionary items with indentation"""
+    for key, value in data.items():
+        print(f"{' ' * indent}{key}")
+        if isinstance(value, list):
+            print_list(value, indent + 2)
+        else:
+            print(f"{' ' * (indent + 2)}{value}")
 
 
 def to_snake_case(string):
@@ -168,25 +180,24 @@ def generate_rows(data):
 
 def export_to_csv(data, filename, headers):
     """Export data to CSV file with meaningful headers in snake_case"""
-    with open(filename, 'w', newline='') as csvfile:
+    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([to_snake_case(header) for header in headers])
         writer.writerows(generate_rows(data))
 
 
 def main():
+    """Main Function"""
     check_github_environment_variables()
     output_mode = check_output_mode()
-    github_client = get_github_client()
-    org = get_organization(github_client)
+    org = get_organization(get_github_client())
     fp = CSV_PATH
-
     data = {
-        "Repo List": (repo_list(org), ["Repository URL"]),
-        "Team List": (team_list(org), ["Team Name", "Repository URL"]),
+        "Repo List": (repo_list(org), [REPO_URL]),
+        "Team List": (team_list(org), ["Team Name", REPO_URL]),
         "Team Membership List": (team_membership(org), ["Team Name", "Member Username"]),
-        "Direct Repo Rights": (repo_rights(org), ["Repository URL", "Collaborator Username"]),
-        "Repo Deploy Keys": (get_deploy_keys(org), ["Repository URL", "Key Title", "Key", "Created At"]),
+        "Direct Repo Rights": (repo_rights(org), [REPO_URL, "Collaborator Username"]),
+        "Repo Deploy Keys": (get_deploy_keys(org), [REPO_URL, "Key Title", "Key", "Created At"]),
     }
 
     if output_mode in ['stdout', 'both']:
@@ -205,4 +216,4 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         print("\nExiting...")
-        exit(0)
+        sys.exit(0)
