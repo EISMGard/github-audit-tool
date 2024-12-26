@@ -10,4 +10,4 @@ PyNaCl
 requests
 urllib3
 wrapt
-
+requests_cache

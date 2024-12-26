@@ -56,3 +56,4 @@ wrapt==1.16.0
     # via
     #   -r requirements.in
     #   deprecated
+requests_cache==1.1.0
