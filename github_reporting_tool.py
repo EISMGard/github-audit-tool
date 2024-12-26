@@ -44,7 +44,7 @@ def check_github_environment_variables():
         case _:
             return  # Both variables are set, so we can return without an error
 
-    exit(1)
+    sys.exit(1)
 
 
 def check_output_mode():
@@ -53,7 +53,7 @@ def check_output_mode():
 
     if output_mode not in ['stdout', 'csv', 'both']:
         print("!!! invalid OUTPUT_MODE. Must be 'stdout', 'csv', or 'both' !!!")
-        exit(1)
+        sys.exit(1)
 
     return output_mode
 
