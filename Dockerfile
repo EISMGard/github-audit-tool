@@ -1,14 +1,25 @@
 FROM python:3.14.0a1-slim
+
+WORKDIR /app
+
+COPY github_reporting_tool.py .
+COPY requirements.txt .
+
+RUN python -m pip install --no-cache-dir --upgrade pip \
+    && python -m pip install --no-cache-dir -r requirements.txt
+
 ARG UID=1000
 ARG GID=1000
 
 RUN groupadd -g "${GID}" python \
-  && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" python
+    && useradd --create-home \
+               --no-log-init \
+               -u "${UID}" \
+               -g "${GID}" \
+               python
+
+ENV PATH=/home/python/.local/bin:$PATH
 
 USER python
-WORKDIR /app
-COPY requirements.txt requirements.txt
-ENV PATH=/home/python/.local/bin:$PATH
-RUN pip3 install -r requirements.txt
-COPY github_reporting_tool.py github_reporting_tool.py
-CMD [ "python3","github_reporting_tool.py" ]
+
+CMD [ "python", "github_reporting_tool.py" ]
