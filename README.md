@@ -1,46 +1,60 @@
 # GitHub Org Audit Tool
+
 This is a tool for auditing github organizations including their repos, users, and teams. It is useful for compliance, security and auditing.
 
 ## Capabilities
+
 * Repo list
 * Team list
 * Team repo rights list
 * User list
 * User repo rights list
 
-[LICENSE](./LICENSE)
+[LICENSE](LICENSE)
 
 ## Installation
+
 ### Permissions
+
 Please note that you'll need your github org name and to create a github token with access to all repo, team, and user info. Here is an example of a fine-grained access token:
-![org permissions](./images/org-permissions.png)
-![other permissions](./images/other-permissions.png)
+
+![org permissions](images/org-permissions.png)
+![other permissions](images/other-permissions.png)
 
 ### Docker Installation
+
 On your host, you'll need to set your environment variables mentioned above.
+
+> [!NOTE]
+> This can be done either with environment variables or by
+> copying `.env.example` to `.env` and filling in the values.
+
 
 ```sh
 export GITHUB_ORG_NAME=<your github org name>
 export  GITHUB_TOKEN=<your github token>
 
-#Build Docker Image
+# Build Docker image
 docker build --tag github-audit-tool .
 
-#Run Image
+# Run image with inline environment variables
 docker run --rm -it -e GITHUB_ORG_NAME -e GITHUB_TOKEN github-audit-tool
+
+# Run image with .env file
+docker run --rm -it --env-file .env github-audit-tool
 ```
 
 ### Local Installation
 
 ```sh
-$ git clone https://github.com/EISMGard/github-audit-tool
-$ cd github-audit-tool
-$ virtualenv -p python3 venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
-$ export GITHUB_ORG_NAME=<your github org name>
-$ export  GITHUB_TOKEN=<your github token>
-$ python github_reporting_tool.py
+git clone https://github.com/EISMGard/github-audit-tool
+cd github-audit-tool
+virtualenv -p python3 venv
+source venv/bin/activate
+pip install -r requirements.txt
+export GITHUB_ORG_NAME=<your github org name>
+export  GITHUB_TOKEN=<your github token>
+python github_reporting_tool.py
 ```
 
 ## Example Output
