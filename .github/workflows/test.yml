@@ -1,8 +1,12 @@
 name: Docker Image CI
 
 on:
-    pull_request:
-      types: [opened, reopened]
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened]
+  workflow_dispatch:
 
 env:
     GITHUB_ORG_NAME: ${{ vars.GH_ORG_NAME }}
