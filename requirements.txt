@@ -57,4 +57,4 @@ wrapt==1.16.0
     #   -r requirements.in
     #   deprecated
 requests_cache==1.1.0
-decouple
+python-decouple==3.8.1
