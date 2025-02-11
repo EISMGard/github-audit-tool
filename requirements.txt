@@ -4,6 +4,12 @@
 #
 #    pip-compile requirements.in
 #
+attrs==25.1.0
+    # via
+    #   cattrs
+    #   requests-cache
+cattrs==24.1.2
+    # via requests-cache
 certifi==2024.8.30
     # via
     #   -r requirements.in
@@ -17,16 +23,20 @@ charset-normalizer==3.3.2
     # via
     #   -r requirements.in
     #   requests
-cryptography==43.0.1
+cryptography==44.0.1
     # via pyjwt
 deprecated==1.2.14
     # via
     #   -r requirements.in
     #   pygithub
+exceptiongroup==1.2.2
+    # via cattrs
 idna==3.10
     # via
     #   -r requirements.in
     #   requests
+platformdirs==4.3.6
+    # via requests-cache
 pycparser==2.22
     # via
     #   -r requirements.in
@@ -41,21 +51,30 @@ pynacl==1.5.0
     # via
     #   -r requirements.in
     #   pygithub
+python-decouple==3.8
+    # via -r requirements.in
 requests==2.32.3
     # via
     #   -r requirements.in
     #   pygithub
+    #   requests-cache
+requests-cache==1.1.0
+    # via -r requirements.in
+six==1.17.0
+    # via url-normalize
 typing-extensions==4.12.2
-    # via pygithub
+    # via
+    #   cattrs
+    #   pygithub
+url-normalize==1.4.3
+    # via requests-cache
 urllib3==2.2.3
     # via
     #   -r requirements.in
     #   pygithub
     #   requests
+    #   requests-cache
 wrapt==1.16.0
     # via
     #   -r requirements.in
     #   deprecated
-requests_cache==1.1.0
-python-decouple==3.8
-zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
