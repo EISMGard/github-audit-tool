@@ -17,7 +17,7 @@ charset-normalizer==3.3.2
     # via
     #   -r requirements.in
     #   requests
-cryptography==43.0.1
+cryptography==44.0.1
     # via pyjwt
 deprecated==1.2.14
     # via
